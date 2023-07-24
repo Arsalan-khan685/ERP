@@ -1,0 +1,50 @@
+﻿@model ERP.Models.Street
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Street</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <label asp-for="StreetId" class="control-label"></label>
+                <input asp-for="StreetId" class="form-control" />
+                <span asp-validation-for="StreetId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Sector</label>
+                <input id="sectid" value="@ViewBag.Sector" class="form-control" disabled/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Block_Id" class="control-label"></label>
+                <select asp-for="Block_Id" asp-items="@ViewBag.BlocksList" class="form-control" disabled>
+                    <option value="">-- Select Block --</option>
+                </select>
+                <span asp-validation-for="Block_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StreetName" class="control-label"></label>
+                <input asp-for="StreetName" class="form-control" />
+                <span asp-validation-for="StreetName" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="Submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

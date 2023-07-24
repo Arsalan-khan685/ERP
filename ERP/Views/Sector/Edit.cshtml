@@ -1,0 +1,37 @@
+﻿@model ERP.Models.Sector
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h3>Edit Sector</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <label asp-for="SectorId" class="control-label"></label>
+                <input asp-for="SectorId" class="form-control" />
+                <span asp-validation-for="SectorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SectorName" class="control-label"></label>
+                <input asp-for="SectorName" class="form-control" />
+                <span asp-validation-for="SectorName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

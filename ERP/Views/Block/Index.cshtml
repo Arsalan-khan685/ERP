@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ERP.Models.Block>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>List Of Blocks</h3>
+
+<p>
+    <a asp-action="Create">Create New Block</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+           @* <th>
+                @Html.DisplayNameFor(model => model.BlockId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.BlockName)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Sector_Id)
+            </th>*@
+            <th>
+                Sector Name
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+           @* <td>
+                @Html.DisplayFor(modelItem => item.BlockId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.BlockName)
+                @*@item.BlockName*@                      @* // This type is also used to acces model element*@
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Sector_Id)
+            </td>*@
+            <td>
+               @* @Html.DisplayTextFor(modelItem => item.Sectors.SectorName)*@
+               @item.Sectors?.SectorName
+            </td>
+            <td>
+                <a asp-controller="Block" asp-action="Edit" asp-route-id="@item.BlockId">Edit</a>
+                <a href="#" onclick="confirmDelete(@item.BlockId)">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<script>
+    // JavaScript function to show a confirmation dialog before deleting
+    function confirmDelete(BlockId) {
+        if (confirm('Are you sure you want to delete this Block?')) {
+            // Redirect to the Delete action passing the sectorId
+            window.location.href = '/Block/Delete/' + BlockId;
+        }
+    }
+</script>

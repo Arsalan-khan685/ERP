@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ERP.Models.Sector>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>List Of Sectors</h3>
+
+<p>
+    <a asp-action="Create">Create New Sector</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => model.SectorId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.SectorName)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+           @* <td>
+                @Html.DisplayFor(modelItem => item.SectorId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.SectorName)
+            </td>
+            <td>
+               <a asp-controller="Sector" asp-action="Edit" asp-route-id="@item.SectorId">Edit</a>                              
+                <a href="#" onclick="confirmDelete(@item.SectorId)">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+
+<script>
+    // JavaScript function to show a confirmation dialog before deleting
+    function confirmDelete(sectorId) {
+        if (confirm('Are you sure you want to delete this sector?')) {
+            // Redirect to the Delete action passing the sectorId
+            window.location.href = '/Sector/Delete/' + sectorId;
+        }
+    }
+</script>
