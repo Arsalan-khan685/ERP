@@ -7,6 +7,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<ISectorService, SectorService>();
 builder.Services.AddSingleton<IBlockService, BlockService>();
 builder.Services.AddSingleton<IStreetService, StreetService>();
+builder.Services.AddSingleton<IPlotTypeService, PlotTypeService>();
+builder.Services.AddSingleton<IPlotSizeService, PlotSizeService>();
+builder.Services.AddSingleton<IPlotService, PlotService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

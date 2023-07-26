@@ -1,0 +1,177 @@
+﻿@model ERP.Models.ViewModels.PlotViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Create Plot</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+          @*  <div class="form-group">
+                <label asp-for="PlotId" class="control-label"></label>
+                <input asp-for="PlotId" class="form-control" />
+                <span asp-validation-for="PlotId" class="text-danger"></span>
+            </div>*@
+
+            @*<div class="form-group">
+                <label asp-for="PlotNo" class="control-label"></label>
+                <input asp-for="PlotNo" class="form-control" />
+                <span asp-validation-for="PlotNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlotTypeId" class="control-label"></label>
+                <input asp-for="PlotTypeId" class="form-control" />
+                <span asp-validation-for="PlotTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlotTypeName" class="control-label"></label>
+                <input asp-for="PlotTypeName" class="form-control" />
+                <span asp-validation-for="PlotTypeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlotSizeId" class="control-label"></label>
+                <input asp-for="PlotSizeId" class="form-control" />
+                <span asp-validation-for="PlotSizeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Plot_Size" class="control-label"></label>
+                <input asp-for="Plot_Size" class="form-control" />
+                <span asp-validation-for="Plot_Size" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StreetId" class="control-label"></label>
+                <input asp-for="StreetId" class="form-control" />
+                <span asp-validation-for="StreetId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StreetName" class="control-label"></label>
+                <input asp-for="StreetName" class="form-control" />
+                <span asp-validation-for="StreetName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BlockId" class="control-label"></label>
+                <input asp-for="BlockId" class="form-control" />
+                <span asp-validation-for="BlockId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BlockName" class="control-label"></label>
+                <input asp-for="BlockName" class="form-control" />
+                <span asp-validation-for="BlockName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SectorId" class="control-label"></label>
+                <input asp-for="SectorId" class="form-control" />
+                <span asp-validation-for="SectorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SectorName" class="control-label"></label>
+                <input asp-for="SectorName" class="form-control" />
+                <span asp-validation-for="SectorName" class="text-danger"></span>
+            </div>*@
+
+            <div class="form-group">
+                <label asp-for="SectorId" class="control-label"></label>
+                <select id="sectorid" asp-for="SectorId" asp-items="@ViewBag.Sectors" class="form-control" onchange="loadblock(this)">
+                    <option value="">-- Select Sector --</option>
+                </select>
+                <span asp-validation-for="SectorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BlockId" class="control-label"></label>
+                <select id="blockid" asp-for="BlockId" asp-items="@ViewBag.Blocks" class="form-control" onchange="loadstreet(this)">
+                    <option value="">-- Select Block --</option>
+                </select>
+                <span asp-validation-for="BlockId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StreetId" class="control-label"></label>
+                <select id="streetid" asp-for="StreetId" asp-items="@ViewBag.Streets" class="form-control">
+                    <option value="">-- Select Street --</option>
+                </select>
+                <span asp-validation-for="StreetId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlotTypeId" class="control-label"></label>
+                <select id="plottypeid" asp-for="PlotTypeId" asp-items="@ViewBag.PlotTypes" class="form-control">
+                    <option value="">-- Select PlotType --</option>
+                </select>
+                <span asp-validation-for="PlotTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlotSizeId" class="control-label"></label>
+                <select id="plotsizeid" asp-for="PlotSizeId" asp-items="@ViewBag.PlotSizes" class="form-control">
+                    <option value="">-- Select PlotSize --</option>
+                </select>
+                <span asp-validation-for="PlotSizeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlotNo" class="control-label"></label>
+                <input asp-for="PlotNo" class="form-control" />
+                <span asp-validation-for="PlotNo" class="text-danger"></span>
+            </div>
+
+
+@*
+            <input type="hidden" asp-for="SectorName" />
+            <input type="hidden" asp-for="BlockName" />
+            <input type="hidden" asp-for="StreetName" />
+            <input type="hidden" asp-for="PlotTypeName" />
+            <input type="hidden" asp-for="Plot_Size" />*@
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+        });
+        function loadblock(obj){
+            var value = obj.value;
+            $.post("/Plot/GetBlocksBySector", {sectorId: value}, function(data){
+                debugger;
+                PopulateDropDown1("#blockid",data);
+            });
+            function PopulateDropDown1(dropdownId,list,selectedId){
+                $(dropdownId).empty();
+                $(dropdownId).append("<option>-- Select Block --</option>")
+                $.each(list,function(index,row){
+                    $(dropdownId).append("<option value='"+ row.value +"'>"+ row.text +"</option>");
+                });
+            }
+        }
+
+        function loadstreet(obj) {
+            var value = obj.value;
+            $.post("/Plot/GetStreetsByBlock", { blockId: value }, function (data) {
+                debugger;
+                PopulateDropDown2("#streetid", data);
+            });
+            function PopulateDropDown2(dropdownId, list, selectedId) {
+                $(dropdownId).empty();
+                $(dropdownId).append("<option>-- Select Street --</option>")
+                $.each(list, function (index, row) {
+                    $(dropdownId).append("<option value='" + row.value + "'>" + row.text + "</option>");
+                });
+            }
+        }
+
+    </script>
+
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

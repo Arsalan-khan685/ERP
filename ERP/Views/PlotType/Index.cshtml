@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ERP.Models.PlotType>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+          @*  <th>
+                @Html.DisplayNameFor(model => model.PlotTypeId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.PlotTypeName)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+          @*  <td>
+                @Html.DisplayFor(modelItem => item.PlotTypeId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.PlotTypeName)
+            </td>
+            <td>
+                <a asp-area="" asp-controller="PlotType" asp-action="Edit" asp-route-id="@item.PlotTypeId">Edit</a>
+                <a href="#"  onclick="ConfirmDelete(@item.PlotTypeId)">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script>
+    function ConfirmDelete(PlotTypeid){
+        if(confirm('Are you sure to delete this plottype?')){
+        window.location.href = '/PlotType/Delete/' + PlotTypeid;
+        }
+    }
+</script>

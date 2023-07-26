@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ERP.Models.PlotSize>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+           @* <th>
+                @Html.DisplayNameFor(model => model.PlotSizeId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Plot_Size)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+         @*   <td>
+                @Html.DisplayFor(modelItem => item.PlotSizeId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Plot_Size)
+            </td>
+            <td>
+               <a asp-area=""  asp-asp-controller="PlotSize" asp-action="Edit" asp-route-id="@item.PlotSizeId">Edit</a>
+               <a href="#" onclick="ConfirmDelete(@item.PlotSizeId)">Delete</a> 
+           </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script>
+    function ConfirmDelete(plotsizeid){
+        if(confirm('Are You sure to delete this Plot Size')){
+            window.location.href = '/PlotSize/Delete/' + plotsizeid
+        }
+    }
+</script>
