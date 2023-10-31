@@ -4,41 +4,40 @@
     ViewData["Title"] = "Index";
 }
 
-<h3>List Of Sectors</h3>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-md-6">
+            <h3 class="text-primary">Sector List </h3>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-controller="Sector" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i>&nbsp; Create New Sector
+            </a>
+        </div>
+    </div>
+    <br />
 
-<p>
-    <a asp-action="Create">Create New Sector</a>
-</p>
-<table class="table table-bordered">
+    <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            @*<th>
-                @Html.DisplayNameFor(model => model.SectorId)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.SectorName)
-            </th>
+            <th>@Html.DisplayNameFor(model => model.SectorName)</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-           @* <td>
-                @Html.DisplayFor(modelItem => item.SectorId)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.SectorName)
-            </td>
-            <td>
-               <a asp-controller="Sector" asp-action="Edit" asp-route-id="@item.SectorId">Edit</a>                              
-                <a href="#" onclick="confirmDelete(@item.SectorId)">Delete</a>
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model) {
+            <tr>         
+                <td>@Html.DisplayFor(modelItem => item.SectorName)</td>
+                <td>
+                    <a asp-controller="Sector" asp-action="Edit" asp-route-id="@item.SectorId" class="btn btn-info">Edit</a>
+                    <a href="#" onclick="confirmDelete(@item.SectorId)" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
+</div>
 
 <script>
     // JavaScript function to show a confirmation dialog before deleting

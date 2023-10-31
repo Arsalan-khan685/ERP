@@ -1,0 +1,69 @@
+﻿@model ERP.Models.Plot
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Plot</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <label asp-for="PlotId" class="control-label"></label>
+                <input asp-for="PlotId" class="form-control" />
+                <span asp-validation-for="PlotId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Sector</label>
+                <input id="sectid" value="@ViewBag.Sector" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Sector</label>
+                <input id="blockid" value="@ViewBag.block.BlockName" class="form-control" disabled/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Street_Id" class="control-label"></label>
+               @* <input id="blockid" value="@ViewBag.block.BlockName" class="form-control" />*@
+                <select asp-for="Street_Id" asp-items="@ViewBag.Street" class="form-control">
+                   @* <option value="StreetId">"@ViewBag.S" StreetName</option>*@
+                </select>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="PlotNo" class="control-label"></label>
+                <input asp-for="PlotNo" class="form-control" />
+                <span asp-validation-for="PlotNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlotType_Id" class="control-label"></label>
+                <input asp-for="PlotType_Id" class="form-control" />
+                <span asp-validation-for="PlotType_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlotSize_Id" class="control-label"></label>
+                <input asp-for="PlotSize_Id" class="form-control" />
+                <span asp-validation-for="PlotSize_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Street_Id" class="control-label"></label>
+                <input asp-for="Street_Id" class="form-control" />
+                <span asp-validation-for="Street_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -53,18 +53,22 @@ namespace ERP.Controllers
 
         public IActionResult Edit(int id)
         {
-            Street street = _StreetService.GetStreetByID(id);
-            List<Block> _listOfBlocks = _StreetService.GetBlocks();
-            string sectorName = _StreetService.GetSectorName(id);
-            ViewBag.sector = sectorName;
+            Street street = _StreetService.GetStreetByID(id);            
+            Sector sector = _StreetService.GetSector(id);
+            ViewBag.Sector = sector;
+            List<Block> _listOfBlocks = _StreetService.GetBlockWithSector(sector.SectorId);
             ViewBag.BlocksList = new SelectList(_listOfBlocks, "BlockId", "BlockName");
             return View(street);
         }
         [HttpPost]
         public IActionResult Edit(Street street)
         {
-            _StreetService.UpdateStreet(street);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _StreetService.UpdateStreet(street);
+                return RedirectToAction("Index");
+            }
+            return View(street);
         }
 
         public IActionResult Delete(int id)

@@ -9,7 +9,7 @@ namespace ERP.Services
         List<Street> GetStreetWithBlock();
         List<Block> GetBlockWithSector(int sectorId);
         List<Street> GetStreetWithBlockAndSectors();
-        string GetSectorName(int id);
+        Sector GetSector(int id);
         int AddStreet(Street street);
         Street GetStreetByID(int id);
         void UpdateStreet(Street street);
