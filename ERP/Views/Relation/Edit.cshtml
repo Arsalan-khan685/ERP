@@ -1,10 +1,10 @@
-﻿@model ERP.Models.PlotType
+﻿@model ERP.Models.Relation
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h3>Edit PlotType</h3>
+<h3>Edit Relation</h3>
 <hr />
 
 <div class="row">
@@ -13,14 +13,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
                 <div class="form-group col-md-4" hidden>
-                    <label asp-for="PlotTypeId" class="control-label"></label>
-                    <input asp-for="PlotTypeId" class="form-control" />
-                    <span asp-validation-for="PlotTypeId" class="text-danger"></span>
+                    <label asp-for="RelationId" class="control-label"></label>
+                    <input asp-for="RelationId" class="form-control" />
+                    <span asp-validation-for="RelationId" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label asp-for="PlotTypeName" class="control-label"></label>
-                    <input asp-for="PlotTypeName" class="form-control" />
-                    <span asp-validation-for="PlotTypeName" class="text-danger"></span>
+                    <label asp-for="RelationName" class="control-label"></label>
+                    <input asp-for="RelationName" class="form-control" />
+                    <span asp-validation-for="RelationName" class="text-danger"></span>
                 </div>
             </div>
           

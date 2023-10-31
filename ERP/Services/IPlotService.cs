@@ -15,5 +15,12 @@ namespace ERP.Services
         List<Block> GetBlockWithSector(int id);
         List<Street> GetStreetsWithBlock(int id);
         void AddPlot(PlotViewModel plot);
+
+        string GetSectorName(int id);
+        string GetBlockName(int id);
+        Block GetBlockNameandId(int id);
+        PlotViewModel GetPlotById(int id);
+        void UpdatePlot(Plot plot);
+        void DeletePlot(int id);
     }
 }

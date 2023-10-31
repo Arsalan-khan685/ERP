@@ -1,10 +1,10 @@
-﻿@model ERP.Models.PlotType
+﻿@model ERP.Models.InstallmentType
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h3>Edit PlotType</h3>
+<h3>Edit InstallmentType</h3>
 <hr />
 
 <div class="row">
@@ -13,17 +13,16 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
                 <div class="form-group col-md-4" hidden>
-                    <label asp-for="PlotTypeId" class="control-label"></label>
-                    <input asp-for="PlotTypeId" class="form-control" />
-                    <span asp-validation-for="PlotTypeId" class="text-danger"></span>
+                    <label asp-for="InstallmentTypeId" class="control-label"></label>
+                    <input asp-for="InstallmentTypeId" class="form-control" />
+                    <span asp-validation-for="InstallmentTypeId" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label asp-for="PlotTypeName" class="control-label"></label>
-                    <input asp-for="PlotTypeName" class="form-control" />
-                    <span asp-validation-for="PlotTypeName" class="text-danger"></span>
+                    <label asp-for="Installment_Type" class="control-label"></label>
+                    <input asp-for="Installment_Type" class="form-control" />
+                    <span asp-validation-for="Installment_Type" class="text-danger"></span>
                 </div>
             </div>
-          
             <div class="form-group pt-md-3">
                 <input type="submit" value="Update" class="btn btn-primary" />
                 <a asp-action="Index" class="btn btn-secondary">Back to List</a>

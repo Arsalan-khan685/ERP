@@ -10,6 +10,9 @@ builder.Services.AddSingleton<IStreetService, StreetService>();
 builder.Services.AddSingleton<IPlotTypeService, PlotTypeService>();
 builder.Services.AddSingleton<IPlotSizeService, PlotSizeService>();
 builder.Services.AddSingleton<IPlotService, PlotService>();
+builder.Services.AddSingleton<IBankService, BankService>();
+builder.Services.AddSingleton<IRelationService, RelationService>();
+builder.Services.AddSingleton<IInstallmentTypeService,InstallmentTypeService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

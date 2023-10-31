@@ -1,0 +1,106 @@
+﻿@model ERP.Models.ViewModels.PlotViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PlotViewModel</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label class="control-label">Sector</label>
+                    <input id="sectid" value="@ViewBag.Sector" class="form-control" disabled />
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Block</label>
+                    <input id="blockid" value="@ViewBag.block.BlockName" class="form-control" disabled />
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Street</label>
+                    <select id="stid" class="form-control" onchange="updateStreetId(this)">
+                        <option value="">-- Select street --</option>
+                        @foreach (var item in ViewBag.Street)
+                        {
+                            int itemValue = Convert.ToInt32(item.Value);
+                            <option value="@item.Value" selected="@(itemValue == Model.StreetId ? "selected" : null)">
+                                @item.Text
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-lable">Plot Type</label>
+                    <select id="plottype" class="form-control" onchange="updatePlotTypeId(this)">
+                        @foreach (var item in ViewBag.PlotTypes)
+                        {
+                            int itemValue = Convert.ToInt32(item.Value);
+                            <option value="@item.Value" selected="@(itemValue == Model.PlotTypeId ? "selected" : null)">
+                                @item.Text
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-lable">Plot Size</label>
+                    <select id="plotsize" class="form-control" onchange="updatePlotSizeId(this)">
+                        @foreach (var item in ViewBag.PlotSizes)
+                        {
+                            int itemValue = Convert.ToInt32(item.Value);
+                            <option value="@item.Value" selected="@(itemValue == Model.PlotSizeId ? "selected" : null)">
+                                @item.Text
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="PlotNo" class="control-label"></label>
+                    <input asp-for="PlotNo" class="form-control" />
+                    <span asp-validation-for="PlotNo" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4" hidden>
+                    <label asp-for="PlotId" class="control-label"></label>
+                    <input asp-for="PlotId" class="form-control" />
+                    <span asp-validation-for="PlotId" class="text-danger"></span>
+                </div>
+            </div>
+            
+
+            <input type="hidden" id="streetId" name="StreetId" value="@Model.StreetId" />
+            <input type="hidden" id="plotTypeId" name="PlotTypeId" value="@Model.PlotTypeId" />
+            <input type="hidden" id="plotSizeId" name="PlotSizeId" value="@Model.PlotSizeId" />       
+           
+            <div class="form-group pt-md-3">
+                <input type="submit" value="Update" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function updateStreetId(select) {
+            var selectedValue = select.value;
+            document.getElementById("streetId").value = selectedValue;
+        }
+        function updatePlotTypeId(select) {
+            var selectedValue = select.value;
+            document.getElementById("plotTypeId").value = selectedValue;
+        }
+        function updatePlotSizeId(select) {
+            var selectedValue = select.value;
+            document.getElementById("plotSizeId").value = selectedValue;
+        }
+    </script>
+
+
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

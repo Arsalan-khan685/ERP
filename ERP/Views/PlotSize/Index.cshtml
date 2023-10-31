@@ -4,40 +4,40 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-md-6">
+            <h3 class="text-primary">PlotSize List </h3>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-controller="PlotSize" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i>&nbsp; Create New PlotSize
+            </a>
+        </div>
+    </div>
+    <br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+    <table class="table table-bordered table-striped">
     <thead>
         <tr>
-           @* <th>
-                @Html.DisplayNameFor(model => model.PlotSizeId)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.Plot_Size)
-            </th>
+            <th>@Html.DisplayNameFor(model => model.Plot_Size)</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-         @*   <td>
-                @Html.DisplayFor(modelItem => item.PlotSizeId)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Plot_Size)
-            </td>
-            <td>
-               <a asp-area=""  asp-asp-controller="PlotSize" asp-action="Edit" asp-route-id="@item.PlotSizeId">Edit</a>
-               <a href="#" onclick="ConfirmDelete(@item.PlotSizeId)">Delete</a> 
-           </td>
-        </tr>
-}
+        @foreach (var item in Model) {
+            <tr>                         
+                <td>@Html.DisplayFor(modelItem => item.Plot_Size)</td>
+                <td>
+                    <a asp-area="" asp-asp-controller="PlotSize" asp-action="Edit" asp-route-id="@item.PlotSizeId" class="btn btn-info">Edit</a>
+                    <a href="#" onclick="ConfirmDelete(@item.PlotSizeId)" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+</div>
 
 <script>
     function ConfirmDelete(plotsizeid){
