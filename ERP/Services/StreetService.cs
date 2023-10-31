@@ -59,11 +59,11 @@ namespace ERP.Services
             {
                 using (conn = new SqlConnection(ConString))
                 {
-                    
+                    conn.Open();
                     string query = "Select * from Sector";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.CommandType = System.Data.CommandType.Text;
-                    conn.Open();
+
                     SqlDataReader rdr = cmd.ExecuteReader();
 
                     while (rdr.Read())
@@ -299,15 +299,15 @@ namespace ERP.Services
             return street;
         }
 
-        public Sector GetSector(int id)
+        public string GetSectorName(int id)
         {
-            Sector sector = new Sector();
+            string sectorName = "";
             try
             {
                 using(conn = new SqlConnection(ConString))
                 {
-                    string query = "Select sc.SectorName,sc.SectorId from street s join block b on s.block_id = b.BlockId " +
-                                    " join sector sc on b.sector_id = sc.sectorid where streetid = @StreetId";
+                    string query = "Select sc.SectorName from street s join block b on s.block_id = b.BlockId " +
+                        "               join sector sc on b.sector_id = sc.sectorid where streetid = @StreetId";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@StreetId", id);
@@ -315,8 +315,7 @@ namespace ERP.Services
                     SqlDataReader rdr = cmd.ExecuteReader();
                     if(rdr.Read())
                     {
-                        sector.SectorId = (int)rdr["SectorId"];
-                        sector.SectorName = (string)rdr["SectorName"];
+                        sectorName = (string)rdr["SectorName"];
                     }
 
                 }
@@ -329,7 +328,7 @@ namespace ERP.Services
             {
                 conn.Close();
             }
-            return sector;
+            return sectorName;
         }
 
         public void UpdateStreet(Street street)

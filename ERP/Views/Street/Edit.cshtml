@@ -4,66 +4,47 @@
     ViewData["Title"] = "Edit";
 }
 
-<h3>Edit Street</h3>
-<hr />
+<h1>Edit</h1>
 
+<h4>Street</h4>
+<hr />
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row">
-                <div class="form-group col-md-4" hidden>
-                    <label asp-for="StreetId" class="control-label"></label>
-                    <input asp-for="StreetId" class="form-control" />
-                    <span asp-validation-for="StreetId" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-4">
-                    <label class="control-label">Sector</label>
-                    <input id="sectid" value="@ViewBag.Sector.SectorName" class="form-control" disabled />
-                </div>
-                <div class="form-group col-md-4">
-                    <label class="control-label">Block</label>
-                    <select id="blockid" class="form-control" onchange="updateBlockId(this)">
-                        <option value="">-- Select Block --</option>
-                        @foreach (var item in ViewBag.BlocksList)
-                        {
-                            int itemValue = Convert.ToInt32(item.Value);
-                            <option value="@item.Value" selected="@(itemValue == Model.Block_Id ? "selected":null)">
-                                @item.Text
-                            </option>
-                        }
-                    </select>
-                </div>
-            @*    <div class="form-group col-md-4">
-                    <label asp-for="Block_Id" class="control-label"></label>
-                    <select asp-for="Block_Id" asp-items="@ViewBag.BlocksList" class="form-control">
-                        <option value="">-- Select Block --</option>
-                    </select>
-                    <span asp-validation-for="Block_Id" class="text-danger"></span>
-                </div>*@
-                <div class="form-group col-md-4">
-                    <label asp-for="StreetName" class="control-label"></label>
-                    <input asp-for="StreetName" class="form-control" />
-                    <span asp-validation-for="StreetName" class="text-danger"></span>
-                </div>
+            <div class="form-group" hidden>
+                <label asp-for="StreetId" class="control-label"></label>
+                <input asp-for="StreetId" class="form-control" />
+                <span asp-validation-for="StreetId" class="text-danger"></span>
             </div>
-                    
-            <div class="form-group pt-md-3">
+            <div class="form-group">
+                <label class="control-label">Sector</label>
+                <input id="sectid" value="@ViewBag.Sector" class="form-control" disabled/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Block_Id" class="control-label"></label>
+                <select asp-for="Block_Id" asp-items="@ViewBag.BlocksList" class="form-control" disabled>
+                    <option value="">-- Select Block --</option>
+                </select>
+                <span asp-validation-for="Block_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StreetName" class="control-label"></label>
+                <input asp-for="StreetName" class="form-control" />
+                <span asp-validation-for="StreetName" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
                 <input type="Submit" value="Update" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
 @section Scripts {
-
-    <script>
-        function updateBlockId(select) {
-            var selectedValue = select.value;
-            document.getElementById("blockid").value = selectedValue;
-        }
-    </script>
-
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

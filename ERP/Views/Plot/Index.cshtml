@@ -4,54 +4,106 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-md-6">
-            <h3 class="text-primary">Plot List </h3>
-        </div>
-        <div class="col-md-6 text-end">
-            <a asp-controller="Plot" asp-action="Create" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i>&nbsp; Create New Plot
-            </a>
-        </div>
-    </div>
-    <br />
+<h1>Index</h1>
 
-    <table class="table table-bordered table-striped">
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
     <thead>
-        <tr>         
-            <th>@Html.DisplayNameFor(model => model.PlotNo)</th>          
-            <th>@Html.DisplayNameFor(model => model.PlotTypeName)</th>          
-            <th>@Html.DisplayNameFor(model => model.Plot_Size)</th>           
-            <th>@Html.DisplayNameFor(model => model.StreetName)</th>            
-            <th>@Html.DisplayNameFor(model => model.BlockName)</th>            
-            <th>@Html.DisplayNameFor(model => model.SectorName)</th>
+        <tr>
+           @* <th>
+                @Html.DisplayNameFor(model => model.PlotId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.PlotNo)
+            </th>
+        @*    <th>
+                @Html.DisplayNameFor(model => model.PlotTypeId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.PlotTypeName)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.PlotSizeId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Plot_Size)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.StreetId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.StreetName)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.BlockId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.BlockName)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.SectorId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.SectorName)
+            </th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) {
-            <tr>       
-                <td>@Html.DisplayFor(modelItem => item.PlotNo)</td>           
-                <td>@Html.DisplayFor(modelItem => item.PlotTypeName)</td>           
-                <td>@Html.DisplayFor(modelItem => item.Plot_Size)</td>           
-                <td>@Html.DisplayFor(modelItem => item.StreetName)</td>        
-                <td>@Html.DisplayFor(modelItem => item.BlockName)</td>          
-                <td>@Html.DisplayFor(modelItem => item.SectorName)</td>
-                <td>
-                    <a asp-area="" asp-controller="Plot" asp-action="Edit" asp-route-id="@item.PlotId" class="btn btn-info">Edit</a>
-                    <a href="#" onclick="ConfirmDelete(@item.PlotId)" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+           @* <td>
+                @Html.DisplayFor(modelItem => item.PlotId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.PlotNo)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.PlotTypeId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.PlotTypeName)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.PlotSizeId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Plot_Size)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.StreetId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.StreetName)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.BlockId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.BlockName)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.SectorId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.SectorName)
+            </td>
+            <td>
+                <a asp-area="" asp-controller="Plot" asp-action="Edit" asp-route-id="@item.PlotId">Edit</a>
+                <a href="#" onclick="ConfirmDelete(@item.PlotId)">Delete</a>                               
+            </td>
+        </tr>
+}
     </tbody>
 </table>
-</div>
+
 
 <script>
     function ConfirmDelete(plotid){
         if(confirm('Are you sure to delete this plot?')){
-            window.location.href = '/Plot/Delete/' + plotid;
+            window.location.href = '/Plot/Delete' + plotid;
         }
     }
 </script>

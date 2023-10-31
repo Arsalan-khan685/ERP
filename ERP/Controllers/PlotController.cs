@@ -3,7 +3,6 @@ using ERP.Models.ViewModels;
 using ERP.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Transactions;
 
 namespace ERP.Controllers
 {
@@ -26,10 +25,10 @@ namespace ERP.Controllers
             
             List<Sector> _listOfSectors = _plotservices.GetSectors();
             ViewBag.Sectors = new SelectList(_listOfSectors, "SectorId", "SectorName");
-            //List <Block> _listOfBlocks = _plotservices.GetBlocks();
-            //ViewBag.Blocks = new SelectList(_listOfBlocks, "BlockId", "BlockName");
-            //List<Street> _listOfStreets = _plotservices.GetStreets();
-            //ViewBag.Streets = new SelectList(_listOfStreets, "StreetId", "StreetName");
+            List <Block> _listOfBlocks = _plotservices.GetBlocks();
+            ViewBag.Blocks = new SelectList(_listOfBlocks, "BlockId", "BlockName");
+            List<Street> _listOfStreets = _plotservices.GetStreets();
+            ViewBag.Streets = new SelectList(_listOfStreets, "StreetId", "StreetName");
             List<PlotType> _listOfPlotTypes = _plotservices.GetPlotTypes();
             ViewBag.PlotTypes = new SelectList(_listOfPlotTypes, "PlotTypeId", "PlotTypeName");
             List<PlotSize> _listOfPlotSizes = _plotservices.GetPlotSizes();
@@ -41,9 +40,33 @@ namespace ERP.Controllers
         public IActionResult Create(PlotViewModel plot)
         {           
                 _plotservices.AddPlot(plot);
-                return RedirectToAction("Index");                       
+                return RedirectToAction("Index");
+            
+            //List<Sector> _listOfSectors = _plotservices.GetSectors();
+            //ViewBag.Sectors = new SelectList(_listOfSectors, "SectorId", "SectorName");
+            //List<Block> _listOfBlocks = _plotservices.GetBlocks();
+            //ViewBag.Blocks = new SelectList(_listOfBlocks, "BlockId", "BlockName");
+            //List<Street> _listOfStreets = _plotservices.GetStreets();
+            //ViewBag.Streets = new SelectList(_listOfStreets, "StreetId", "StreetName");
+            //List<PlotType> _listOfPlotTypes = _plotservices.GetPlotTypes();
+            //ViewBag.PlotTypes = new SelectList(_listOfPlotTypes, "PlotTypeId", "PlotTypeName");
+            //List<PlotSize> _listOfPlotSizes = _plotservices.GetPlotSizes();
+            //ViewBag.PlotSizes = new SelectList(_listOfPlotSizes, "PlotSizeId", "Plot_Size");
+
+
+            //plot.SectorName = GetItemNameById(plot.SectorId, ViewBag.Sectors);
+            //plot.BlockName = GetItemNameById(plot.BlockId, ViewBag.Blocks);
+            //plot.StreetName = GetItemNameById(plot.StreetId, ViewBag.Streets);
+            //plot.PlotTypeName = GetItemNameById(plot.PlotTypeId, ViewBag.PlotTypes);
+            //plot.Plot_Size = GetItemNameById(plot.PlotSizeId, ViewBag.PlotSizes);
+
         }
-       
+
+        //private string GetItemNameById(int id, SelectList list)
+        //{
+        //    var selectedItem = list.FirstOrDefault(item => item.Value == id.ToString());
+        //    return selectedItem != null ? selectedItem.Text : string.Empty;
+        //}
         [HttpPost]
         public JsonResult GetBlocksBySector(int sectorId)
         {
@@ -59,40 +82,6 @@ namespace ERP.Controllers
             return Json(streetsList);
         }
 
-        public IActionResult Edit(int id)
-        {
-            PlotViewModel plot = _plotservices.GetPlotById(id);
-            string sector = _plotservices.GetSectorName(id);
-            ViewBag.Sector = sector;
-            Block block = _plotservices.GetBlockNameandId(id);
-            ViewBag.block = block;
-            List<Street> _listofStreet = _plotservices.GetStreetsWithBlock(block.BlockId);            
-            ViewBag.Street = new SelectList(_listofStreet, "StreetId", "StreetName");
-            List<PlotType> _listofPlotTypes = _plotservices.GetPlotTypes();
-            ViewBag.PlotTypes = new SelectList(_listofPlotTypes, "PlotTypeId", "PlotTypeName");
-            List<PlotSize> _listofPlotSizes = _plotservices.GetPlotSizes();
-            ViewBag.PlotSizes = new SelectList(_listofPlotSizes, "PlotSizeId", "Plot_Size");          
-            return View(plot);
-        }
-        [HttpPost]
-        public IActionResult Edit(Plot plot, int streetId, int plotTypeId, int plotSizeId)
-        {
-            plot.Street_Id = streetId;
-            plot.PlotType_Id = plotTypeId;
-            plot.PlotSize_Id = plotSizeId;
-            if (ModelState.IsValid)
-            {
-                _plotservices.UpdatePlot(plot);
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-        public IActionResult Delete(int id)
-        {
-            _plotservices.DeletePlot(id);
-            return RedirectToAction("Index");
-        }
     }
 }
 

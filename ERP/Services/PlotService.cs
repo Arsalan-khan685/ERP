@@ -70,6 +70,7 @@ namespace ERP.Services
             }
             return _listofPlots;
         }
+
         public List<Sector> GetSectors()
         {
             List<Sector> sectorsList = new List<Sector>();
@@ -104,6 +105,7 @@ namespace ERP.Services
             }
             return sectorsList;
         }
+
         public List<Block> GetBlocks()
         {
             List<Block> blocksList = new List<Block>();
@@ -138,6 +140,7 @@ namespace ERP.Services
             }
             return blocksList;
         }
+
         public List<Street> GetStreets()
         {
             List<Street> streetsList = new List<Street>();
@@ -206,6 +209,7 @@ namespace ERP.Services
             }
             return plotSizesList;
         }
+
         public List<PlotType> GetPlotTypes()
         {
             List<PlotType> PlotTypesList = new List<PlotType>();
@@ -240,6 +244,7 @@ namespace ERP.Services
             }
             return PlotTypesList;
         }
+
         public List<Block> GetBlockWithSector(int sectorId)
         {
             List<Block> blockslist = new List<Block>();
@@ -277,7 +282,8 @@ namespace ERP.Services
                 conn.Close();
             }
             return blockslist;
-        }        
+        }
+        
         public List<Street> GetStreetsWithBlock(int blockId)
         {
             List<Street> streetslist = new List<Street>();
@@ -316,6 +322,7 @@ namespace ERP.Services
             }
             return streetslist;
         }
+
         public void AddPlot(PlotViewModel plot)
         {
             try
@@ -336,191 +343,6 @@ namespace ERP.Services
             }
             catch (Exception ex)
             {             
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
-        public string GetSectorName(int id)
-        {
-            string sectorName = "";
-            try
-            {
-                using(conn = new SqlConnection(ConString))
-                {
-                    string query = "select SectorName from sector s inner join block b on s.sectorid=b.sector_id " +
-                                    " inner join street st on b.blockid=st.block_id " +
-                                    " inner join plot p on st.streetid=p.street_id where p.plotid=@PlotID";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@PlotID", id);
-                    conn.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    if (rdr.Read())
-                    {
-                        sectorName = (string)rdr["SectorName"];
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return sectorName;
-        }
-        public string GetBlockName(int id)
-        {
-            string blockName = "";
-            try
-            {
-                using (conn = new SqlConnection(ConString))
-                {
-                    string query = "select blockName from block b inner join street st on b.blockid=st.block_id " +
-                                    " inner join plot p on st.streetid=p.street_id where p.plotid=@PlotID";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@PlotID", id);
-                    conn.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    if (rdr.Read())
-                    {
-                        blockName = (string)rdr["blockName"];
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return blockName;
-        }
-        public Block GetBlockNameandId(int id)
-        {
-            Block block = new Block();
-            try
-            {
-                using (conn = new SqlConnection(ConString))
-                {
-                    string query = "select blockid,blockName from block b inner join street st on b.blockid=st.block_id " +
-                                    " inner join plot p on st.streetid=p.street_id where p.plotid=@PlotID";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@PlotID", id);
-                    conn.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    if (rdr.Read())
-                    {
-                        block.BlockId = (int)rdr["BlockId"];
-                        block.BlockName = (string)rdr["blockName"];
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return block;
-        }
-        public PlotViewModel GetPlotById(int id)
-        {
-            PlotViewModel plot = new PlotViewModel();
-            try
-            {
-                using(conn = new SqlConnection(ConString))
-                {
-                    string query = "select p.plotid,p.plotno,p.plottype_id,p.plotsize_id,p.street_id,ps.Plot_Size," +
-                                    "pt.PlotTypeName,s.StreetName from plot p inner join plotsize ps " +
-                                    "on p.plotsize_id=ps.plotsizeid join plottype pt on p.plottype_id=pt.plottypeid " +
-                                    "join street s on p.street_id = s.streetid where plotid = @PlotID";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@PlotID", id);
-                    conn.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    if (rdr.Read())
-                    {
-                        plot.PlotId = (int)rdr["PlotId"];
-                        plot.PlotNo = (string)rdr["PlotNo"];
-                        plot.PlotSizeId = (int)rdr["PlotSize_Id"];
-                        plot.Plot_Size = (string)rdr["Plot_Size"];
-                        plot.PlotTypeId = (int)rdr["PlotType_Id"];
-                        plot.PlotTypeName = (string)rdr["PlotTypeName"];
-                        plot.StreetId = (int)rdr["Street_Id"];
-                        plot.StreetName = (string)rdr["StreetName"];
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return plot;
-        }
-
-        public void UpdatePlot(Plot plot)
-        {
-            try
-            {
-                using(conn = new SqlConnection(ConString))
-                {
-                    string query = "Update Plot SET PlotNo=@PlotNo,PlotType_Id=@Plottype,PlotSize_Id=@Plotsize," +
-                                    " Street_Id=@StreetId Where PlotId=@PlotId ";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@PlotId", plot.PlotId);
-                    cmd.Parameters.AddWithValue("@PlotNo", plot.PlotNo);
-                    cmd.Parameters.AddWithValue("@Plottype", plot.PlotType_Id);
-                    cmd.Parameters.AddWithValue("@Plotsize", plot.PlotSize_Id);
-                    cmd.Parameters.AddWithValue("@StreetId", plot.Street_Id);
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
-        public void DeletePlot(int id)
-        {
-            try
-            {
-                using (conn = new SqlConnection(ConString))
-                {
-                    string query = "Delete from plot where PlotId=@PlotId ";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@PlotId",id);
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
                 throw;
             }
             finally

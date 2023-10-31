@@ -4,39 +4,40 @@
     ViewData["Title"] = "Create";
 }
 
-<h3>Create Street </h3>
+<h4>Create Street </h4>
 <hr />
-
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row">
-                <div class="form-group col-md-4">
-                    <label class="control-label">Select Sector</label>
-                    <select id="secid" asp-items="@ViewBag.SectorsList" class="form-control" onchange="loadblock(this)">
-                        <option value="">-- Select Sector --</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-4">
-                    <label asp-for="Block_Id" class="control-label"></label>
-                    <select id="blockid" asp-for="Block_Id" class="form-control">
-                        <option value="">-- Select Block --</option>
-                    </select>
-                    <span asp-validation-for="Block_Id" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-4">
-                    <label asp-for="StreetName" class="control-label"></label>
-                    <input asp-for="StreetName" class="form-control" />
-                    <span asp-validation-for="StreetName" class="text-danger"></span>
-                </div>
-            </div>           
-            <div class="form-group pt-md-3">
+            <div class="form-group">
+                <label class="control-label">Select Sector</label>
+                <select id="secid" asp-items="@ViewBag.SectorsList" class="form-control" onchange="loadblock(this)">
+                    <option value="">-- Select Sector --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Block_Id" class="control-label"></label>
+                <select id="blockid" asp-for="Block_Id" asp-items="@ViewBag.BlocksList" class="form-control">
+                    <option value="">-- Select Block --</option>
+                </select>
+                <span asp-validation-for="Block_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StreetName" class="control-label"></label>
+                <input asp-for="StreetName" class="form-control" />
+                <span asp-validation-for="StreetName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-dark">Back to List</a>
             </div>
         </form>
     </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
@@ -47,6 +48,7 @@
         });
         function loadblock(obj) {
             var value = obj.value;
+
             $.post("/Street/GetBlocksBySector", { sectorId: value }, function (data) {
                 debugger;
                 PopulateDropDown("#blockid", data);
@@ -62,6 +64,7 @@
         }
 
     </script>
+
 
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

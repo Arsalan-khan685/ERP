@@ -4,25 +4,34 @@
     ViewData["Title"] = "Create";
 }
 
-<h3>Create Sector</h3>
-<hr />
+<h1>Create</h1>
 
+<h4>Sector</h4>
+<hr />
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
         <form asp-action="Create" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>           
-            <div class="form-group col-md-4 ">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           @* <div class="form-group">
+                <label asp-for="SectorId" class="control-label"></label>
+                <input asp-for="SectorId" class="form-control" />
+                <span asp-validation-for="SectorId" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
                 <label asp-for="SectorName" class="control-label"></label>
                 <input asp-for="SectorName" class="form-control" />
                 <span asp-validation-for="SectorName" class="text-danger"></span>
             </div>
-            <div class="form-group pt-md-3">
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-dark">Back to List</a>
             </div>
         </form>
     </div>
-</div>  
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

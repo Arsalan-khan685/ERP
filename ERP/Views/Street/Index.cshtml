@@ -4,23 +4,15 @@
     ViewData["Title"] = "Index";
 }
 
+<h1>Index</h1>
 
-<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-md-6">
-            <h3 class="text-primary">Street List </h3>
-        </div>
-        <div class="col-md-6 text-end">
-            <a asp-controller="Street" asp-action="Create" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i>&nbsp; Create New Street
-            </a>
-        </div>
-    </div>
-    <br />
-
-    <table class="table table-bordered table-striped">
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-bordered">
     <thead>
-        <tr>           
+        <tr>
+           @* <th>@Html.DisplayNameFor(model => model.StreetId)</th> *@
             <th>@Html.DisplayNameFor(model => model.StreetName)</th>            
             <th>Block</th>
             <th>Sector</th>
@@ -28,25 +20,28 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) {
-            <tr>           
-                <td>@Html.DisplayFor(modelItem => item.StreetName)</td>            
-                <td>@item.Blocks?.BlockName</td>
+@foreach (var item in Model) {
+        <tr>
+            @* <td>@Html.DisplayFor(modelItem => item.StreetId)</td> *@
+            <td>@Html.DisplayFor(modelItem => item.StreetName)</td>
+            @*<td>@Html.DisplayFor(modelItem => item.Block_Id)</td>*@
+            <td>@item.Blocks?.BlockName</td>
                 <td>@item.Blocks?.Sectors?.SectorName</td>
-                <td>
-                    <a asp-controller="Street" asp-action="Edit" asp-route-id="@item.StreetId" class="btn btn-info">Edit</a>
-                    <a href="#" onclick="confirmDelete(@item.StreetId)" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
+            <td>
+                <a asp-controller="Street" asp-action="Edit" asp-route-id="@item.StreetId">Edit</a>
+                    <a href="#" onclick="confirmDelete(@item.StreetId)">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>
 
-</div>
 
 <script>
+    // JavaScript function to show a confirmation dialog before deleting
     function confirmDelete(StreetId) {
         if (confirm('Are you sure you want to delete this Street?')) {
+            // Redirect to the Delete action passing the sectorId
             window.location.href = '/Street/Delete/' + StreetId;
         }
     }
