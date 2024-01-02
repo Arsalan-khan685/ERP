@@ -1,0 +1,224 @@
+﻿@model ERP.Models.ViewModels.TransferViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h3>Transfer Application Form</h3>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row pt-2">
+                <div class="form-group col-md-12"><h5 style="color: #006DF0;">Plot Information</h5></div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Sector</label>
+                    <select id="sectorid" class="form-control" asp-items="@ViewBag.Sectors" onchange="loadblock(this)">
+                        <option value="">-- Select Sector --</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Block</label>
+                    <select id="blockid" class="form-control" onchange="loadstreet(this)">
+                        <option value="">-- Select Block --</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Street</label>
+                    <select id="streetid" class="form-control" onchange="loadplot(this)">
+                        <option value="">-- Select Street --</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Plot</label>
+                    <select id="plotid" asp-for="Clients.Plot_ID" class="form-control" onchange="loadplotsizeandtype(this)">
+                        <option value="">-- Select Plot --</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Plot Size</label>
+                    <input id="plotsizeid" class="form-control" disabled/>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Plot Type</label>
+                    <input id="plottypeid" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="form-group col-md-12"><h5 style="color: #006DF0;">Personal Information</h5></div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Name of Applicant</label>
+                    <input asp-for="Clients.Name" class="form-control"/>
+                    <span asp-validation-for="Clients.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Father/Husband Name</label>
+                    <input asp-for="Clients.GuardianName" class="form-control" />
+                    <span asp-validation-for="Clients.GuardianName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">CNIC</label>
+                    <input asp-for="Clients.CNIC" class="form-control" />
+                    <span asp-validation-for="Clients.CNIC" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Passport No</label>
+                    <input asp-for="Clients.PassportNo" class="form-control" />
+                    <span asp-validation-for="Clients.PassportNo" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Mailing Address</label>
+                    <input asp-for="Clients.MailingAddress" class="form-control" />
+                    <span asp-validation-for="Clients.MailingAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Permanent Address</label>
+                    <input asp-for="Clients.PermanentAddress" class="form-control" />
+                    <span asp-validation-for="Clients.PermanentAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Phone No</label>
+                    <input asp-for="Clients.PhoneNo" class="form-control" />
+                    <span asp-validation-for="Clients.PhoneNo" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Email</label>
+                    <input asp-for="Clients.Email" class="form-control" />
+                    <span asp-validation-for="Clients.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="form-group col-md-12">
+                    <h5 style="color: #006df0">Nominee Information (for info)</h5>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-lable">Name of Nominee</label>
+                    <input asp-for="Nominees.NomineeName" class="form-control"/>
+                    <span asp-validation-for="Nominees.NomineeName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-lable">Father/Husband Name</label>
+                    <input asp-for="Nominees.NomineeGuardian" class="form-control"/>
+                    <span asp-validation-for="Nominees.NomineeGuardian" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-lable">CNIC of Nominee</label>
+                    <input asp-for="Nominees.NomineeCNIC" class="form-control" />
+                    <span asp-validation-for="Nominees.NomineeCNIC" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Relationship with Applicant</label>
+                    <select id="relationid" asp-for="Nominees.Relation_ID" class="form-control" asp-items="@ViewBag.Relations">
+                        <option value="">-- Select Relations --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group pt-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-dark">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+        });
+        function loadblock(obj) {
+            var value = obj.value;
+            $.post("/Transfer/GetBlocksBySector", {sectorId: value }, function(data) {
+                debugger;
+                PopulateDropDown("#blockid", data);
+            });
+            function PopulateDropDown(dropdownId,list) {
+                $(dropdownId).empty();
+                $(dropdownId).append("<option>-- Select Block--</option>")
+                $.each(list, function (index,row) {
+                    $(dropdownId).append("<option value='" + row.value + "'>" + row.text + "</option>")
+                });
+            }
+        }
+
+        function loadstreet(obj) {
+            var value = obj.value;
+            $.post("/Transfer/GetStreetsByBlock", { blockId: value }, function (data) {
+                debugger;
+                PopulateDropDown2("#streetid",data)
+            });
+            function PopulateDropDown2(dropdownId, list){
+                $(dropdownId).empty();
+                $(dropdownId).append("<option>-- Select Street --</option>")
+                $.each(list, function (index, row) {
+                    $(dropdownId).append("<option value='" + row.value + "'>"+ row.text +"</option>")
+                });
+            }
+        }
+
+        function loadplot(obj){
+            var value = obj.value;
+            $.post("/Transfer/GetPlotByStreet", { streetId: value }, function (data) {
+                debugger;
+                PopulateDropDown3("#plotid",data)
+            });
+            function PopulateDropDown3(dropdownId, list){
+                $(dropdownId).empty();
+                $(dropdownId).append("<option>-- Select Plot --</option>")
+                $.each(list, function (index,row) {
+                    $(dropdownId).append("<option value='"+ row.value +"'>"+ row.text +"</option>")
+                });
+            }
+        }
+
+        function loadplotsizeandtype(obj) {
+            var value = obj.value;
+            
+            $.ajax({
+                url : '/Transfer/GetPlotDetails',
+                method : 'GET',
+                data: {plotId : value},
+                success: function (data) {
+                    if (data) {
+                        $('#plotsizeid').val(data[0].plotSize);
+                        $('#plottypeid').val(data[0].plotType);
+                    } else {
+                        console.error('No plot details found.');
+                    }
+                },
+                error: function () {
+                    console.error('Error Loading Plot Size and Type');
+                }
+            })
+        }        
+
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+  @*   <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.querySelector('form');
+            form.addEventListener('submit', function (event) {
+                // Check if the form is valid
+                if (form.checkValidity()) {
+                    // No need to prevent the default form submission here
+                    // If the form is valid, it will proceed with the default submission
+
+                    // After handling the submission, reload the page
+                    location.reload(true);
+                } else {
+                    // If the form is not valid, you might want to display an error message or take other actions
+                    console.log("Form is not valid");
+
+                    // Prevent the default form submission
+                    event.preventDefault();
+                }
+            });
+        });
+    </script> *@
+
+}

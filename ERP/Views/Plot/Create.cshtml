@@ -17,7 +17,7 @@
                     <select id="sectorid" asp-for="SectorId" asp-items="@ViewBag.Sectors" class="form-control" onchange="loadblock(this)">
                         <option value="">-- Select Sector --</option>
                     </select>
-                    <span asp-validation-for="SectorId" class="text-danger"></span>
+                    <span asp-validation-for="SectorId" class="text-danger"></span>     
                 </div>
                 <div class="form-group col-md-4">
                     <label asp-for="BlockId" class="control-label"></label>

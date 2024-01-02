@@ -20,12 +20,11 @@ namespace ERP.Services
             try
             {
                 using (conn = new SqlConnection(ConString))
-                {
-                    conn.Open();
+                {                  
                     string query = "Select * from Sector";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.CommandType = System.Data.CommandType.Text;
-
+                    conn.Open();
                     SqlDataReader rdr = cmd.ExecuteReader();
 
                     while (rdr.Read())
@@ -49,7 +48,7 @@ namespace ERP.Services
             return sectorsList;
         }
 
-        public int AddSector(Sector sector)
+        public string AddSector(Sector sector)
         {
             int res = 0;
             try
@@ -64,23 +63,22 @@ namespace ERP.Services
                     res = cmd.ExecuteNonQuery(); 
                     if(res > 0)
                     {
-                   //     return res;
+                        return null;
                     }
                     else 
                     {
-
+                        return "Error Inserting Sector";
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw;
+                return "Sector Insertion Failed";
             }
             finally 
             {
                 conn.Close();
             }        
-            return res;
         }
 
         public Sector GetSectorByID(int id)
@@ -117,7 +115,7 @@ namespace ERP.Services
             return sec;
         }
 
-        public void UpdateSector(Sector sector)
+        public string UpdateSector(Sector sector)
         {
             int res = 0;
             try
@@ -133,17 +131,17 @@ namespace ERP.Services
                     res = cmd.ExecuteNonQuery();
                     if (res > 0)
                     {
-                        //     return res;
+                        return null;
                     }
                     else
                     {
-
+                        return "Error Inserting Sector";
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw;
+                return ex.Message;
             }
             finally
             {

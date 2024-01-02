@@ -38,9 +38,9 @@
                 <td>@Html.DisplayFor(modelItem => item.StreetName)</td>        
                 <td>@Html.DisplayFor(modelItem => item.BlockName)</td>          
                 <td>@Html.DisplayFor(modelItem => item.SectorName)</td>
-                <td>
-                    <a asp-area="" asp-controller="Plot" asp-action="Edit" asp-route-id="@item.PlotId" class="btn btn-info">Edit</a>
-                    <a href="#" onclick="ConfirmDelete(@item.PlotId)" class="btn btn-danger">Delete</a>
+                <td>                   
+                    <a asp-area="" asp-controller="Plot" asp-action="Edit" asp-route-id="@item.PlotId" class="btn btn-info btn-sm">Edit</a>
+                    <a href="#" onclick="ConfirmDelete(@item.PlotId)" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
         }

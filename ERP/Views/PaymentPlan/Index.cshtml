@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ERP.Models.PaymentPlan>
+
+@{
+    ViewData["Title"] = "Index";
+}
+ 
+<style>
+.my-table th, .my-table td{
+    padding-top : 0.3rem;
+    padding-right : 0.2rem;
+    padding-left : 0.2rem;
+}
+</style>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-md-6">
+            <h3 class="text-primary">Payment Plans</h3>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-action="Create" asp-controller="PaymentPlan" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i>&nbsp; Create new Payment plan
+            </a>
+        </div>
+    </div>
+    <br />
+    <table class="table table-bordered table-striped my-table">
+        <thead>
+            <tr>
+                <th>Plot Type</th>
+                <th>Plot Size</th>
+                <th>Installment Duration</th>
+                <th>Total Price</th>
+                <th>Down Payment</th>
+                <th>On Confrimation</th>
+                <th>Allocation Fee</th>
+                <th>Form Fee</th>
+                <th>Description</th>
+                <th>Balance</th>
+                <th>Installment Type</th>
+                <th>One Installment Amount</th>
+                <th>No Of Installments</th>
+                <th>Total Installment Amount</th>              
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.PlotType?.PlotTypeName</td>
+                    <td>@item.PlotSize?.Plot_Size</td>
+                    <td>@Html.DisplayFor(modelItem => item.InstallmentDuration)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TotalPrice)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DownPayment)</td>
+                    <td>@Html.DisplayFor(modelItem => item.OnConfirmation)</td>
+                    <td>@Html.DisplayFor(modelItem => item.AllocationFee)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FormFee)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Balance)</td>
+                    <td>@item.InstallmentType?.Installment_Type</td>
+                    <td>@Html.DisplayFor(modelItem => item.OneInstallmentAmount)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NoOfInstallment)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TotalInstallmentAmount)</td>
+                    <td>
+                        <a asp-area="" asp-controller="PaymentPlan" asp-action="Edit" asp-route-id="@item.PaymentPlanID" class="btn btn-info btn-sm">Edit</a>
+                        <a href="#" onclick="confirmDelete(@item.PaymentPlanID)" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function confirmDelete(paymentplanId) {
+        if (confirm('Are you sure to delete this Payment Plan?')) { 
+            window.location.href = '/PaymentPlan/Delete/' + paymentplanId;
+        }
+    }
+</script>

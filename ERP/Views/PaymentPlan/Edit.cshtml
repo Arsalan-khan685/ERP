@@ -1,0 +1,168 @@
+﻿@model ERP.Models.PaymentPlan
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h3>Edit PaymentPlan</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-md-3" hidden>
+                    <label asp-for="PaymentPlanID" class="control-label"></label>
+                    <input asp-for="PaymentPlanID" class="form-control" />
+                    <span asp-validation-for="PaymentPlanID" class="text-danger"></span>
+                </div>
+                @* <div class="form-group col-md-3">
+                    <label class="control-label">Plot Type</label>
+                    <select id="plottypeid" class="form-control" onchange="updatePlottype(this)">
+                        <option value="">-- Select --</option>
+                        @foreach(var item in ViewBag.PlotTypes)
+                        {
+                            int itemValue = Convert.ToInt32(item.Value);
+                            <option value="@item.Value" selected="@(itemValue== Model.PlotType_ID ? "selected":null)">
+                                @item.Text
+                            </option>
+                        }
+                    </select>
+                    <span asp-validation-for="PlotType_ID" class="text-danger"></span>
+                </div> *@
+                <div class="form-group col-md-3">
+                    <label class="control-label">Plot Types</label>
+                    <select asp-for="PlotType_ID" asp-items="@ViewBag.PlotTypes" class="form-control">
+                        <option value="">-- Select PlotType --</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label">Plot Types</label>
+                    <select asp-for="PlotSize_ID" asp-items="@ViewBag.PlotSizes" class="form-control">
+                        <option value="">-- Select PlotSize --</option>
+                    </select>
+                </div>
+                @* <div class="form-group col-md-3">
+                    <label class="control-label">Plot Size</label>
+                    <select id="plotsizeid" class="form-control" onchange="updateplotsize(this)">
+                        <option value="">-- Select --</option>
+                        @foreach(var item in ViewBag.PlotSizes)
+                        {
+                            var itemValue = Convert.ToInt32(item.Value);
+                            <option value="@item.Value" selected="@(itemValue == Model.PlotSize_ID ? "selected":null)">
+                                @item.Text
+                            </option>
+                        }
+                    </select>
+                    <span asp-validation-for="PlotSize_ID" class="text-danger"></span>
+                </div> *@
+                <div class="form-group col-md-3">
+                    <label asp-for="InstallmentDuration" class="control-label"></label>
+                    <input asp-for="InstallmentDuration" class="form-control" />
+                    <span asp-validation-for="InstallmentDuration" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TotalPrice" class="control-label"></label>
+                    <input asp-for="TotalPrice" class="form-control" />
+                    <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="DownPayment" class="control-label"></label>
+                    <input asp-for="DownPayment" class="form-control" />
+                    <span asp-validation-for="DownPayment" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="OnConfirmation" class="control-label"></label>
+                    <input asp-for="OnConfirmation" class="form-control" />
+                    <span asp-validation-for="OnConfirmation" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="AllocationFee" class="control-label"></label>
+                    <input asp-for="AllocationFee" class="form-control" />
+                    <span asp-validation-for="AllocationFee" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="FormFee" class="control-label"></label>
+                    <input asp-for="FormFee" class="form-control" />
+                    <span asp-validation-for="FormFee" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Balance" class="control-label"></label>
+                    <input asp-for="Balance" class="form-control" />
+                    <span asp-validation-for="Balance" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <div class="row pt-3">
+                <div class="col-md-12"><h4 style="color: #006DF0;">Installments</h4></div>
+            </div>
+            <div class="row pt-2">
+               @*  <div class="form-group col-md-3">
+                    <label class="control-label">Installment Type</label>
+                    <select id="installmenttypeid" class="form-control" onchange="updateinstallmenttype(this)">
+                        <option value="">-- Select --</option>
+                        @foreach(var item in ViewBag.InstallmentTypes)
+                        {
+                            var itemValue = Convert.ToInt32(item.Value);
+                            <option value="@item.Value" selected="@(itemValue==Model.InstallmentType_ID ? "selected":null)">
+                                @item.Text
+                            </option>
+                        }
+                    </select>
+                    <span asp-validation-for="InstallmentType_ID" class="text-danger"></span>
+                </div> *@
+                <div class="form-group col-md-3">
+                    <label class="control-label">Installment Types</label>
+                    <select asp-for="InstallmentType_ID" asp-items="@ViewBag.InstallmentTypes" class="form-control">
+                        <option value="">-- Select InstallmentType --</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="OneInstallmentAmount" class="control-label"></label>
+                    <input asp-for="OneInstallmentAmount" class="form-control" />
+                    <span asp-validation-for="OneInstallmentAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="NoOfInstallment" class="control-label"></label>
+                    <input asp-for="NoOfInstallment" class="form-control" />
+                    <span asp-validation-for="NoOfInstallment" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="TotalInstallmentAmount" class="control-label"></label>
+                    <input asp-for="TotalInstallmentAmount" class="form-control" />
+                    <span asp-validation-for="TotalInstallmentAmount" class="text-danger"></span>
+                </div>              
+                <div class="form-group pt-3">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-dark">Back to List</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<script>
+    function updatePlottype(select)
+    {
+        var selectedvalue = select.value;
+        document.getElementById("plottypeid").value = selectedvalue
+    }
+    funtion updateplotsize(select)
+    {
+        var selectedvalue = select.value;
+        document.getElementById("plotsizeid").value = selectedvalue
+    }
+    function updateinstallmenttype(select)
+    {
+        var selectedvalue = select.value;
+        document.getElementById("installmenttypeid").value = selectedvalue
+    }
+</script>

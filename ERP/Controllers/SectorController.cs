@@ -27,10 +27,19 @@ namespace ERP.Controllers
         {
             if (ModelState.IsValid)
             {
-                _sectorService.AddSector(sector);
-                return RedirectToAction("Index");
+                string res = _sectorService.AddSector(sector);
+                if(res == null)
+                {
+                    TempData["message"] = "Sector Added Succesfully";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["message"] = res;
+                    return View(sector);
+                }
             }
-            return View();
+            return View(sector);
         }
         public IActionResult Edit(int id) 
         {
@@ -43,8 +52,17 @@ namespace ERP.Controllers
         {
             if (ModelState.IsValid)
             {
-                _sectorService.UpdateSector(sector);
-                return RedirectToAction("Index");
+                string res = _sectorService.UpdateSector(sector);
+                if (res == null)
+                {
+                    TempData["message"] = res;
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["message"] = res;
+                    return View(sector);
+                }
             }
             return View();            
         }

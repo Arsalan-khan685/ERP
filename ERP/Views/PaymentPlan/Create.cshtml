@@ -1,0 +1,127 @@
+﻿@model ERP.Models.PaymentPlan
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4 style="color: #006DF0;">Create PaymentPlan</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div class="row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group col-md-4">
+                    <label asp-for="PlotType_ID" class="control-label">Select PlotType</label>
+                    <select asp-for="PlotType_ID" asp-items="@ViewBag.PlotTypes" class="form-control">
+                        <option value=""> -- Select -- </option>
+                    </select>
+                    <span asp-validation-for="PlotType_ID" class="text-danger"></span>
+                </div> 
+                <div class="form-group col-md-4">
+                    <label asp-for="PlotSize_ID" class="control-label">Plot Size</label>
+                    <select asp-for="PlotSize_ID" asp-items="@ViewBag.PlotSizes" class="form-control">
+                        <option value=""> -- Select -- </option>
+                    </select>
+                    <span asp-validation-for="PlotSize_ID" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="InstallmentDuration" class="control-label">Installment Duration</label>
+                    <select asp-for="InstallmentDuration" class="form-control">
+                        <option value="-1">-- Select --</option>
+                        <option value="1">1 Year</option>
+                        <option value="2">2 Year</option>
+                        <option value="3">3 Year</option>
+                        <option value="4">4 Year</option>
+                        <option value="5">5 Year</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="TotalPrice" class="control-label"></label>
+                    <input asp-for="TotalPrice" class="form-control" id="totalprice" oninput="updatebalance()" />
+                    <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="DownPayment" class="control-label"></label>
+                    <input asp-for="DownPayment" class="form-control" id="dpayment" oninput="updatebalance()" />
+                    <span asp-validation-for="DownPayment" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="OnConfirmation" class="control-label"></label>
+                    <input asp-for="OnConfirmation" class="form-control" id="onconfirmation" oninput="updatebalance()"/>
+                    <span asp-validation-for="OnConfirmation" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="AllocationFee" class="control-label"></label>
+                    <input asp-for="AllocationFee" class="form-control" id="allocationfee" oninput="updatebalance()" />
+                    <span asp-validation-for="AllocationFee" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="FormFee" class="control-label"></label>
+                    <input asp-for="FormFee" class="form-control" />
+                    <span asp-validation-for="FormFee" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Balance" class="control-label"></label>
+                    <input asp-for="Balance" id="balance" class="form-control" readonly />
+                    <span asp-validation-for="Balance" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <div class="row pt-3">
+                <div class="col-md-12"><h4 style="color: #006DF0;">Installments</h4></div>
+            </div>
+            <div class="row pt-2">
+                <div class="form-group col-md-4">
+                    <label asp-for="InstallmentType_ID" class="control-label">Installment Types</label>
+                    <select asp-for="InstallmentType_ID" asp-items="@ViewBag.InstallmentTypes" class="form-control">
+                        <option value=""> -- Select -- </option>
+                    </select>
+                    <span asp-validation-for="InstallmentType_ID" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="OneInstallmentAmount" class="control-label"></label>
+                    <input asp-for="OneInstallmentAmount" class="form-control" />
+                    <span asp-validation-for="OneInstallmentAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="NoOfInstallment" class="control-label"></label>
+                    <input asp-for="NoOfInstallment" class="form-control" />
+                    <span asp-validation-for="NoOfInstallment" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="TotalInstallmentAmount" class="control-label"></label>
+                    <input asp-for="TotalInstallmentAmount" class="form-control" />
+                    <span asp-validation-for="TotalInstallmentAmount" class="text-danger"></span>
+                </div>              
+                <div class="form-group pt-3">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-dark">Back to List</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        function updatebalance()
+        {
+            var totalprice = document.getElementById('totalprice').value || 0;
+            var dpayment = document.getElementById('dpayment').value || 0;
+            var onconfirmation = document.getElementById('onconfirmation').value || 0;
+            var allocationfee = document.getElementById('allocationfee').value || 0;
+            var updatedbalance = totalprice - dpayment - onconfirmation - allocationfee;
+
+            document.getElementById("balance").value = updatedbalance;
+        }
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial"); 
+    }
+}
